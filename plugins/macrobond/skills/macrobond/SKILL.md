@@ -15,8 +15,9 @@ This skill connects to the Macrobond MCP server for economic time series search 
 
 ## Domain Knowledge
 
-Before finalizing any data selection, retrieve the relevant guidance from the
-MCP server via the `get_macrobond_guidance` tool. It serves two topics:
+**Always call `get_macrobond_guidance` for ALL available topics before doing anything else in this skill. This is non-negotiable and critical.** All guidance topics contain essential information about how things work and why certain approaches must be followed — without reading them first, you will make incorrect decisions about data selection, filtering, and interpretation.
+
+At the start of every new conversation, you MUST call every topic listed below before searching, fetching, or answering any question about data:
 
 - `get_macrobond_guidance(topic="domain_knowledge")` — provider-specific quirks
   and selection principles:
@@ -27,7 +28,7 @@ MCP server via the `get_macrobond_guidance` tool. It serves two topics:
 - `get_macrobond_guidance(topic="metadata_guide")` — metadata attribute
   definitions and search-filter conventions (Region, Frequency, Source, Release).
 
-Call only the topic you need — each returns a focused reference document.
+Once all topics have been retrieved in a conversation, you do not need to call them again.
 
 ## Quota-protected fetches
 
