@@ -58,6 +58,7 @@ jobs:
             plugins/ \
             .claude-plugin/ \
             .github/plugin/ \
+            LICENCE \
             README.md
           echo "Created ${{ steps.version.outputs.zip }} ✓"
 
