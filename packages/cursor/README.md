@@ -7,25 +7,24 @@ service.
 
 ## Requirements
 
-- An active Macrobond AI Data Feed subscription and a Macrobond account
+- An active Macrobond AI Data Feed subscription or Macrobond Assist license, and a Macrobond account
 - Cursor 2.5 or later
 
 ## Install
 
 Add the Macrobond marketplace and install the plugin:
 
-1. Open **Dashboard → Settings → Plugins**.
-2. Under **Team Marketplaces**, select **Import** and enter
-   `https://github.com/macrobond-platform/macrobond-plugins`.
-3. Install the `macrobond` plugin.
+1. Open **Customize**.
+2. Select **From GitHub repository** and enter
+   `https://github.com/macrobond-platform/macrobond-plugins/tree/main/packages/cursor/`.
+3. Go to **Browse marketplaces**, find **Macrobond**, and add it.
 
-For a local checkout, copy or link this directory to
+For a local checkout, copy this directory to
 `~/.cursor/plugins/local/macrobond`, then reload Cursor.
 
 ## Connect your Macrobond account
 
-Ask Cursor to use Macrobond. If it asks you to sign in, follow the prompt and use
-your Macrobond account.
+Authenticate the `macrobond-mcp` server and sign in with your Macrobond account.
 
 ## Try it
 
