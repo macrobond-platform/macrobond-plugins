@@ -76,6 +76,10 @@ Macrobond account.
 - *"Compare US and euro area core inflation over the last ten years."*
 - *"Show me a table of German unemployment, monthly, since 2020."*
 
+## How it works
+
+![Macrobond MCP in Claude](../../docs/claude/architecture.svg)
+
 ## Changelog
 
 See [`CHANGELOG.md`](CHANGELOG.md).
