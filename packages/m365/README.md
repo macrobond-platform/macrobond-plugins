@@ -48,6 +48,10 @@ remembers the connection afterwards.
 - _"Show me a table of German unemployment, monthly, since 2020."_
 - _"What was US GDP growth as first reported, versus the current figure?"_
 
+## How it works
+
+![Macrobond MCP in Microsoft 365 Copilot](../../docs/m365/architecture.svg)
+
 ## Changelog
 
 See [`CHANGELOG.md`](CHANGELOG.md).

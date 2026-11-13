@@ -1,57 +1,63 @@
 # Macrobond for ChatGPT and Codex
 
-Search and retrieve economic time series data from Macrobond. Use the plugin in
-Codex, or connect the hosted MCP service directly to ChatGPT.
-
-The Codex plugin includes the Macrobond skill and configures the hosted Macrobond
-MCP service.
+Search and retrieve economic time series data from Macrobond in ChatGPT and
+Codex.
 
 ## Requirements
 
 - An active Macrobond AI Data Feed subscription or Macrobond Assist license, and a Macrobond account
 - Access to plugins in ChatGPT or Codex
-- On ChatGPT web, the plugin works only in chats in the **Work** tab
 
 ## Install
 
-### ChatGPT web
+Choose the install method for where you use ChatGPT:
 
-1. Download the
-   [latest Macrobond ChatGPT plugin](https://github.com/macrobond-platform/macrobond-plugins/releases/latest/download/Macrobond-AI-Data-Feed-ChatGPT-Web.zip).
-   Do not unzip it.
+| Method | Works in |
+|---|---|
+| [MCP connector](#mcp-connector) | ChatGPT on the web (**Chat** and **Work**) and the ChatGPT desktop app (**Chat**, **Work** and **Codex**) |
+| [Marketplace](#marketplace) | ChatGPT desktop app (**Work** and **Codex**) |
 
-2. Open **Plugins** in the sidebar. Select **+**, then **Upload plugin**.
+The MCP connector adds the hosted Macrobond MCP service to your ChatGPT account,
+so it works everywhere. The marketplace plugin adds the Macrobond skill and
+configures the same service, but the ChatGPT desktop app runs that
+configuration only in **Work** and **Codex**.
 
-   ![Upload plugin](../../docs/chatgpt-web/01-upload-plugin.png)
+In a ChatGPT Business workspace, an admin can set up Macrobond for all members.
+See [ChatGPT workspace](#chatgpt-workspace).
 
-3. Drag the downloaded ZIP into the window, or select **click to upload** and
-   choose it.
+### MCP connector
 
-   ![New plugin](../../docs/chatgpt-web/02-choose-zip.png)
+1. On [chatgpt.com](https://chatgpt.com), open **Plugins** in the sidebar.
+   Select **Add**, then **Add custom MCP server**.
 
-4. When it shows **Import successful**, select **View Plugin**.
+   ![Add custom MCP server](../../docs/chatgpt/connector-01-add-mcp-server.png)
 
-   ![Import successful](../../docs/chatgpt-web/03-import-successful.png)
+2. Enter **Macrobond** as the name and `https://platform.macrobond.com/mcp` as
+   the server URL. Keep **Authentication** set to **OAuth**.
+3. Open **Advanced OAuth settings** and keep the discovered settings: the
+   registration method is **Client Identifier Metadata Document (CIMD)**, and
+   these scopes are selected:
+   - `macrobond_web_api.search_retrieval_mcp`
+   - `macrobond_web_api.read_mb`
+   - `macrobond_web_api.search_mb`
+   - `offline_access`
 
-5. Sign in with your Macrobond account when prompted. Start a chat in the
-   **Work** tab to use the plugin.
+   ![MCP server settings](../../docs/chatgpt/connector-02-server-settings.png)
 
-### ChatGPT workspace
+4. Select **I understand and want to continue**, then **Create as a plugin**.
+5. Sign in with your Macrobond account when prompted. Start a message with
+   **Macrobond** to use it.
 
-A workspace administrator can make Macrobond available to workspace members:
+The connector belongs to your ChatGPT account, so it is also available in
+**Chat**, **Work** and **Codex** in the ChatGPT desktop app.
 
-1. Open **Admin → Plugins** and select **Add → Import marketplace**.
-2. Enter `https://github.com/macrobond-platform/macrobond-plugins` as the
-   source and leave the marketplace path empty.
-3. Select **Import marketplace** and authorize GitHub access when prompted.
-4. Review the import results, open **Macrobond**, and configure its installation
-   policy for the appropriate workspace roles.
+In a ChatGPT Business workspace, only owners and admins can create a custom MCP
+server. If **Add custom MCP server** isn't in the menu, ask your workspace admin
+to add Macrobond. See [ChatGPT workspace](#chatgpt-workspace).
 
-The package currently configures the MCP service through `.mcp.json`, so an
-imported workspace plugin is available in the ChatGPT desktop app rather than
-ChatGPT on the web.
+### Marketplace
 
-### ChatGPT desktop
+#### ChatGPT desktop app
 
 1. Open **Settings** and select **Plugins**. Select **Add**, then
    **Add a marketplace**.
@@ -68,27 +74,88 @@ ChatGPT on the web.
 
    ![Install Macrobond](../../docs/chatgpt/03-install-macrobond.png)
 
-4. Sign in with your Macrobond account when prompted. Start a message with
-   **Macrobond** to use the plugin.
+4. Sign in with your Macrobond account when prompted. In **Work** or **Codex**,
+   start a message with **Macrobond** to use the plugin.
 
    ![Start a message](../../docs/chatgpt/04-start-a-message.png)
 
    ![Using the plugin](../../docs/chatgpt/05-use-the-plugin.png)
 
-### Codex CLI
+In **Chat**, the plugin is listed but can't reach Macrobond. Use the
+[MCP connector](#mcp-connector) there.
 
-Add the Macrobond marketplace and install the plugin:
+### ChatGPT workspace
 
-```text
-codex plugin marketplace add https://github.com/macrobond-platform/macrobond-plugins.git
-codex plugin add macrobond@macrobond-plugins
-```
+In a ChatGPT Business workspace, an owner or admin can make Macrobond available
+to members in the workspace settings at
+[admin.openai.com](https://admin.openai.com):
+
+| Method | Members can use it in |
+|---|---|
+| [Workspace MCP plugin](#workspace-mcp-plugin) | ChatGPT on the web (**Chat** and **Work**) and the ChatGPT desktop app (**Chat**, **Work** and **Codex**) |
+| [Marketplace import](#marketplace-import) | ChatGPT desktop app (**Work** and **Codex**), updated from GitHub |
+
+Each member signs in with their own Macrobond account the first time they use
+Macrobond.
+
+#### Workspace MCP plugin
+
+1. In the workspace settings, open **Marketplaces** and select **Add**, then
+   **Create MCP plugin**. Turn on developer mode if the form asks for it.
+
+   ![Create MCP plugin](../../docs/chatgpt/workspace-01-create-mcp-plugin.png)
+
+2. Enter **Macrobond** as the name and `https://platform.macrobond.com/mcp` as
+   the server URL. Keep **Authentication** set to **OAuth**. Under
+   **Advanced authentication settings**, keep the discovered settings:
+   **Client Identifier Metadata Document (CIMD)** and all four scopes selected.
+3. Select **I understand and want to continue**, then **Create**. Sign in with
+   your Macrobond account in the window that opens.
+4. Open the new plugin and select **Review app**. Check the tools and
+   approvals, complete both risk reviews, then select **Publish**.
+5. Under **Availability**, choose **Available** to let members install it, or
+   **Installed** to install it for everyone.
+
+Members find Macrobond under the workspace's tab in **Plugins**. They select
+**Install plugin**, then **Continue to Macrobond**, and sign in. In the ChatGPT
+desktop app, members select **+** next to **Macrobond** if it isn't installed
+there yet.
+
+To remove the plugin, open it, set **Enabled** to **Disable** for the entire
+workspace, then delete it.
+
+#### Marketplace import
+
+1. In the workspace settings, open **Marketplaces** and select **Add**, then
+   **Import marketplace**.
+
+   ![Import marketplace menu](../../docs/chatgpt/workspace-02-import-marketplace-menu.png)
+
+2. Enter `https://github.com/macrobond-platform/macrobond-plugins` as the
+   **Source**. Leave the path and branch empty.
+
+   ![Import marketplace](../../docs/chatgpt/workspace-03-import-marketplace.png)
+
+3. Select **Import marketplace** and connect GitHub when prompted. Connecting
+   GitHub requires multi-factor authentication on your ChatGPT account.
+
+The import publishes Macrobond to the whole workspace straight away, with no
+review step. With **Auto-sync** on, it checks GitHub for updates every day.
+Members install it in the ChatGPT desktop app from the workspace's tab in
+**Plugins** and sign in with their Macrobond account.
+
+To remove it, open the marketplace's settings and select
+**Delete marketplace**. This also deletes the imported plugin.
 
 ## Try it
 
 - *"Give me a chart of Sweden GDP."*
 - *"Compare US and euro area core inflation over the last ten years."*
 - *"Show me a table of German unemployment, monthly, since 2020."*
+
+## How it works
+
+![Macrobond MCP in ChatGPT](../../docs/chatgpt/architecture.svg)
 
 ## Changelog
 
